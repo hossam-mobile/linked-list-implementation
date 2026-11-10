@@ -5,7 +5,7 @@ data class Node<T>(
 )
 
 class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1) {
-    fun printList(): Unit {
+    fun printList() {
         var tempNode: Node<T>? = this.head
         while(tempNode != null) {
             println(tempNode)
@@ -14,9 +14,8 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     //TIP push = append
-    fun push(value: T): Unit {
+    fun push(value: T) {
         val newNode = Node(value = value)
-        val tempNode = head
         if(this.head == null) {
             head = newNode
             tail = newNode
@@ -28,7 +27,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
         length++
     }
 
-    fun pop(): Unit {
+    fun pop() {
         // no items
         if(head == null) return
         // one item
@@ -57,8 +56,8 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
 }
 
 fun main() {
-    val node1 = Node<Int>(value = 10, next = null)
-    val linkedList = LinkedList<Int>(head = node1, tail = node1, length = 1)
+    val node1 = Node(value = 10, next = null)
+    val linkedList = LinkedList(head = node1, tail = node1, length = 1)
     println("Head ==> ${linkedList.head}")
     println("Tail ==> ${linkedList.tail}")
     println("Length ==> ${linkedList.length}")
