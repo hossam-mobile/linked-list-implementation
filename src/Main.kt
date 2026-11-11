@@ -1,4 +1,3 @@
-
 data class Node<T>(
     val value: T,
     var next: Node<T>? = null
@@ -7,7 +6,7 @@ data class Node<T>(
 class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1) {
     fun printList() {
         var tempNode: Node<T>? = this.head
-        while(tempNode != null) {
+        while (tempNode != null) {
             println(tempNode)
             tempNode = tempNode.next
         }
@@ -16,7 +15,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     //TIP push = append
     fun push(value: T) {
         val newNode = Node(value = value)
-        if(this.head == null) {
+        if (this.head == null) {
             head = newNode
             tail = newNode
         } else {
@@ -29,31 +28,62 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
 
     fun pop() {
         // no items
-        if(head == null) return
+        if (length == 0 || head == null) {
+            println("Cannot pop empty node")
+            return
+        }
         // one item
-        if(length < 1 && head?.next == null) {
+        if (length < 1 && head?.next == null) {
             head = null
             tail = null
+            return
         }
 
         // more items
-        if(length > 1 && head?.next != null) {
-            val tempNode = head
-            while (head?.next != null) {
-                if(head?.next == tail) {
-                    tail = head
-                    head?.next = null
-                    head = tempNode
-                } else{
-
-                head = head?.next
-                }
+        var tempNode = head
+        while (tempNode?.next != null) {
+            if (tempNode.next == tail) {
+                tempNode.next = null
+                tail = tempNode
+                break
             }
+            tempNode = tempNode.next
         }
 
         length--
     }
+
+    fun unshift(value: T) {
+        val newNode = Node(value = value)
+        if (length == 0 || head == null) {
+            head = newNode
+            tail = newNode
+            return
+        }
+
+        newNode.next = head
+        head = newNode
+
+        length++
+    }
+
+    fun shift() {
+        if (length == 0 || head == null) {
+            println("Cannot shift an empty node")
+            return
+        }
+
+        if (length == 1 || head?.next == null) {
+            head = null
+            tail = null
+            return
+        }
+
+        head = head?.next
+        length--
+    }
 }
+
 
 fun main() {
     val node1 = Node(value = 10, next = null)
@@ -63,12 +93,24 @@ fun main() {
     println("Length ==> ${linkedList.length}")
 
     linkedList.push(3)
+    linkedList.push(2)
+    linkedList.push(9)
     println("===== LinkedList =====")
     linkedList.printList()
     println("===========")
 
     linkedList.pop()
     println("===== Popped LinkedList =====")
+    linkedList.printList()
+    println("===========")
+
+    linkedList.unshift(5)
+    println("===== Unshifted LinkedList =====")
+    linkedList.printList()
+    println("===========")
+
+    linkedList.shift()
+    println("===== Shifted LinkedList =====")
     linkedList.printList()
     println("===========")
 
