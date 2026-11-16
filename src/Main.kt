@@ -69,7 +69,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
 
     fun shift() {
         if (length == 0 || head == null) {
-            println("Cannot shift an empty node")
+            println("Cannot shift empty node")
             return
         }
 
@@ -81,6 +81,17 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
 
         head = head?.next
         length--
+    }
+
+    fun get(index: Int): Node<T>? {
+        if(length < 0 || index > length) {
+            throw IndexOutOfBoundsException()
+        }
+        var tempNode = head
+        repeat(index) {
+            tempNode = tempNode?.next
+        }
+        return tempNode
     }
 }
 
@@ -113,6 +124,8 @@ fun main() {
     println("===== Shifted LinkedList =====")
     linkedList.printList()
     println("===========")
+
+    println(linkedList.get(1))
 
 
 }
