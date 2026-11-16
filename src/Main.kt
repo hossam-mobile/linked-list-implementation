@@ -134,6 +134,22 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
         node.next = node.next?.next
         length--
     }
+
+    fun reverse() {
+        if(length == 0 || head == null) return
+        var tempNode = head
+        head = tail
+        tail = tempNode
+
+        var next: Node<T>?
+        var prev: Node<T>? = null
+        repeat(length) {
+            next = tempNode?.next
+            tempNode?.next = prev
+            prev = tempNode
+            tempNode = next
+        }
+    }
 }
 
 
@@ -175,6 +191,10 @@ fun main() {
     println("===========")
 
     linkedList.remove(1)
+    linkedList.printList()
+    println("===========")
+
+    linkedList.reverse()
     linkedList.printList()
 
 
