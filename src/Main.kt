@@ -118,6 +118,22 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
         length++
         return true
     }
+
+    fun remove(index: Int) {
+        if(index == 0) {
+            shift()
+            return
+        }
+
+        if (index == length) {
+            pop()
+            return
+        }
+
+        val node = get(index - 1) ?: return
+        node.next = node.next?.next
+        length--
+    }
 }
 
 
@@ -155,6 +171,10 @@ fun main() {
 
     linkedList.set(index = 1, value = 5)
     linkedList.insert(index = 2, newNode = Node(value = 40))
+    linkedList.printList()
+    println("===========")
+
+    linkedList.remove(1)
     linkedList.printList()
 
 
