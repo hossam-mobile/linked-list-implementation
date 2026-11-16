@@ -163,6 +163,7 @@ fun main() {
     linkedList.push(Node(value = 15))
     linkedList.push(Node(value = 20))
     linkedList.push(Node(value = 30))
+//    linkedList.push(Node(value = 40))
     println("===== LinkedList =====")
     linkedList.printList()
     println("===========")
@@ -196,6 +197,5 @@ fun main() {
 
     linkedList.reverse()
     linkedList.printList()
-
 
 }
