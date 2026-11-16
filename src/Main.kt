@@ -15,8 +15,8 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     //TIP push = append
-    fun push(value: T) {
-        val newNode = Node(value = value)
+    fun push(newNode: Node<T>) {
+
         if (this.head == null) {
             head = newNode
             tail = newNode
@@ -55,8 +55,8 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
         length--
     }
 
-    fun unshift(value: T) {
-        val newNode = Node(value = value)
+    fun unshift(newNode: Node<T>) {
+
         if (length == 0 || head == null) {
             head = newNode
             tail = newNode
@@ -86,7 +86,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     fun get(index: Int): Node<T>? {
-        if(index !in 0..length) {
+        if (index !in 0..length) {
             throw IndexOutOfBoundsException()
         }
         var tempNode = head
@@ -101,6 +101,23 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
         node.value = value
         return true
     }
+
+    fun insert(index: Int, newNode: Node<T>): Boolean {
+        if (index == 0) {
+            unshift(newNode)
+            return true
+        }
+
+        if (index == length) {
+            push(newNode)
+            return true
+        }
+        val node = get(index - 1) ?: return false
+        newNode.next = node.next
+        node.next = newNode
+        length++
+        return true
+    }
 }
 
 
@@ -111,9 +128,9 @@ fun main() {
     println("Tail ==> ${linkedList.tail}")
     println("Length ==> ${linkedList.length}")
 
-    linkedList.push(3)
-    linkedList.push(2)
-    linkedList.push(9)
+    linkedList.push(Node(value = 15))
+    linkedList.push(Node(value = 20))
+    linkedList.push(Node(value = 30))
     println("===== LinkedList =====")
     linkedList.printList()
     println("===========")
@@ -123,7 +140,7 @@ fun main() {
     linkedList.printList()
     println("===========")
 
-    linkedList.unshift(5)
+    linkedList.unshift(Node(value = 50))
     println("===== Unshifted LinkedList =====")
     linkedList.printList()
     println("===========")
@@ -137,6 +154,7 @@ fun main() {
     println("===========")
 
     linkedList.set(index = 1, value = 5)
+    linkedList.insert(index = 2, newNode = Node(value = 40))
     linkedList.printList()
 
 
