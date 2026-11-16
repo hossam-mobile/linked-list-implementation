@@ -1,6 +1,8 @@
 data class Node<T>(
-    val value: T,
+    var value: T,
     var next: Node<T>? = null
+
+
 )
 
 class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1) {
@@ -84,7 +86,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     fun get(index: Int): Node<T>? {
-        if(length < 0 || index > length) {
+        if(index !in 0..length) {
             throw IndexOutOfBoundsException()
         }
         var tempNode = head
@@ -92,6 +94,12 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
             tempNode = tempNode?.next
         }
         return tempNode
+    }
+
+    fun set(index: Int, value: T): Boolean {
+        val node = get(index) ?: return false
+        node.value = value
+        return true
     }
 }
 
@@ -126,6 +134,10 @@ fun main() {
     println("===========")
 
     println(linkedList.get(1))
+    println("===========")
+
+    linkedList.set(index = 1, value = 5)
+    linkedList.printList()
 
 
 }
