@@ -1,8 +1,6 @@
-data class Node<T>(
+class Node<T>(
     var value: T,
     var next: Node<T>? = null
-
-
 )
 
 class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1) {
