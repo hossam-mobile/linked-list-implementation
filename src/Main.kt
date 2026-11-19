@@ -1,7 +1,12 @@
 class Node<T>(
     var value: T,
     var next: Node<T>? = null
-)
+) {
+    override fun toString(): String {
+//        super.toString()
+        return "Node(value=$value, next=$next)"
+    }
+}
 
 class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1) {
     fun printList() {
