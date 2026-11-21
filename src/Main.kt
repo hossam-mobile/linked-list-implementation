@@ -38,9 +38,10 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
             return
         }
         // one item
-        if (length < 1 && head?.next == null) {
+        if (length == 1 && head?.next == null) {
             head = null
             tail = null
+            length--
             return
         }
 
@@ -63,6 +64,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
         if (length == 0 || head == null) {
             head = newNode
             tail = newNode
+            length++
             return
         }
 
@@ -81,6 +83,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
         if (length == 1 || head?.next == null) {
             head = null
             tail = null
+            length--
             return
         }
 
@@ -89,7 +92,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     fun get(index: Int): Node<T>? {
-        if (index !in 0..length) {
+        if (index !in 0..<length) {
             throw IndexOutOfBoundsException()
         }
         var tempNode = head
@@ -106,6 +109,11 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     fun insert(index: Int, newNode: Node<T>): Boolean {
+
+        if (index < 0 || index < length) {
+            return false
+        }
+
         if (index == 0) {
             unshift(newNode)
             return true
@@ -123,12 +131,13 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     fun remove(index: Int) {
-        if(index == 0) {
+        if (index > length) return
+        if (index == 0) {
             shift()
             return
         }
 
-        if (index == length) {
+        if (index == length - 1) {
             pop()
             return
         }
@@ -139,7 +148,7 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
     }
 
     fun reverse() {
-        if(length == 0 || head == null) return
+        if (length == 0 || head == null) return
         var tempNode = head
         head = tail
         tail = tempNode
@@ -152,6 +161,28 @@ class LinkedList<T>(var head: Node<T>?, var tail: Node<T>?, var length: Int = 1)
             prev = tempNode
             tempNode = next
         }
+    }
+
+    fun emptyList(): LinkedList<T> {
+        val list = LinkedList<T>(
+            null, null, 0
+        )
+        return list as LinkedList<T>
+    }
+
+    fun removeNextNode(node: Node<T>?) {
+        if (length == 1 || node?.next == null) {
+            return
+        } else if (node.next == tail) {
+            tail = node
+            node.next = null
+            length--
+            return
+        }
+
+        node.next = node.next?.next
+
+        length--
     }
 }
 
